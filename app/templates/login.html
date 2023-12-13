@@ -1,0 +1,28 @@
+<!-- templates/login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_signup %} Signup {% else %} Login {% endif %}</title>
+</head>
+<body>
+    <h1>{% if is_signup %} Signup {% else %} Login {% endif %}</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="post" {% if is_signup %}action="{{ url_for('signup') }}"{% else %}action="{{ url_for('login') }}"{% endif %}>
+        {{ form.hidden_tag() }}
+        <p>{{ form.user_email.label }} {{ form.user_email }}</p>
+        <p>{{ form.password.label }} {{ form.password }}</p>
+        <p>{{ form.submit }}</p>
+    </form>
+</body>
+</html>
